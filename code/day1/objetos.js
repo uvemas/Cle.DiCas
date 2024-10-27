@@ -31,17 +31,6 @@ console.log(foo.address.city);
 foo.employee = 'any';
 console.log(foo.employee?.address?.postalCode);
 
-// ¿null es un object?
-console.log('Using bar');
-let bar = 22;
-// Error bar.any = 1;
-console.log(bar.any);
-
-// Error bar = null;
-// Error Cannot set property 'any' of null
-// bar.any = 1;
-// console.log(bar.any);
-
 // Arrays
 const data = [1, 2, 3, 4, 5];
 data[1] = 22;
@@ -73,11 +62,19 @@ console.log(sum.nombre);
 
 // ¿Todo es un objeto?
 // No, hay tipos primitivos
-// Pero muchos de ellos se comportan como si fueran objetos
-// Existen los Wrapper Objects: String, Number y Boolean
+// Pero algunos de ellos tienen Wrapper Objects (String, Number y Boolean) y se comportan como si fueran objetos
 
-const str = 'Hola';
-str.any = 22;
+let bar = 'Hola';
+console.log(bar.any); // La lectura de propiedades no da error, simplemente devuelve undefined
+//bar.any = 22;  // TypeError: Cannot create property 'any' on string 'Hola'
 // Lo que pasa const objStr = new String(str);
-console.log(str.toUpperCase());
-console.log(str, typeof str);
+console.log(bar.toUpperCase());
+console.log(bar, typeof bar);
+
+/*
+typeof null devuelve object pero esto es un bug de JS. null no es un object porque no se le pueden asignar/leer propiedades.
+Además no tiene wrapper objects.
+*/
+let baz = null;
+// baz.any;  // TypeError: Cannot read properties of null (reading 'any')
+// baz.any = 1;  // TypeError: Cannot set properties of null (setting 'any')
